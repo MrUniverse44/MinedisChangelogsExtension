@@ -9,7 +9,9 @@ import me.blueslime.minedis.extensions.changelogs.utils.version.VersionConverter
 import me.blueslime.minedis.modules.discord.Controller;
 import me.blueslime.minedis.utils.text.TextReplacer;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.channel.concrete.NewsChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.StandardGuildMessageChannel;
 import net.md_5.bungee.config.Configuration;
 
 import java.util.HashMap;
@@ -110,9 +112,19 @@ public class ChangelogCommand extends MinecraftCommand {
                 channelID
             );
 
+            StandardGuildMessageChannel channel;
+
             if (textChannel == null) {
-                sender.send("&cChannel for push is not found!");
-                return;
+                NewsChannel newsChannel = guild.getNewsChannelById(
+                        channelID
+                );
+                if (newsChannel == null) {
+                    sender.send("&cChannel for push is not found!");
+                    return;
+                }
+                channel = newsChannel;
+            } else {
+                channel = textChannel;
             }
 
             TextReplacer replacer = TextReplacer.builder();
@@ -180,7 +192,7 @@ public class ChangelogCommand extends MinecraftCommand {
                 return;
             }
 
-            textChannel.sendMessageEmbeds(
+            channel.sendMessageEmbeds(
                 new EmbedSection(
                     configuration.getSection("embeds.on-push")
                 ).build(
@@ -252,12 +264,12 @@ public class ChangelogCommand extends MinecraftCommand {
             String channelID = configuration.getString("settings.version-release-channel-id", "NOT_SET");
 
             if (guildID.isEmpty() || guildID.equalsIgnoreCase("NOT_SET")) {
-                sender.send("&cGuild for push is not set!");
+                sender.send("&cGuild for release is not set!");
                 return;
             }
 
             if (channelID.isEmpty() || channelID.equalsIgnoreCase("NOT_SET")) {
-                sender.send("&cChannel for push is not set!");
+                sender.send("&cChannel for release is not set!");
                 return;
             }
 
@@ -266,7 +278,7 @@ public class ChangelogCommand extends MinecraftCommand {
             );
 
             if (guild == null) {
-                sender.send("&cGuild for push is not found!");
+                sender.send("&cGuild for release is not found!");
                 return;
             }
 
@@ -274,9 +286,19 @@ public class ChangelogCommand extends MinecraftCommand {
                     channelID
             );
 
+            StandardGuildMessageChannel channel;
+
             if (textChannel == null) {
-                sender.send("&cChannel for push is not found!");
-                return;
+                NewsChannel newsChannel = guild.getNewsChannelById(
+                        channelID
+                );
+                if (newsChannel == null) {
+                    sender.send("&cChannel for release is not found!");
+                    return;
+                }
+                channel = newsChannel;
+            } else {
+                channel = textChannel;
             }
 
             String currentVersion = configuration.getString("projects." + id + ".version", "0.0.1");
@@ -348,7 +370,7 @@ public class ChangelogCommand extends MinecraftCommand {
 
             plugin.saveConfiguration();
 
-            textChannel.sendMessageEmbeds(
+            channel.sendMessageEmbeds(
                 new EmbedSection(
                         configuration.getSection("embeds.on-version-release")
                 ).build(
