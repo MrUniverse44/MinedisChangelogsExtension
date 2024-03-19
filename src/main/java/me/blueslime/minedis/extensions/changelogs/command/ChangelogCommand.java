@@ -195,6 +195,8 @@ public class ChangelogCommand extends MinecraftCommand {
                 return;
             }
 
+            plugin.saveConfiguration();
+
             channel.sendMessageEmbeds(
                 new EmbedSection(
                     configuration.getSection("embeds.on-push")
