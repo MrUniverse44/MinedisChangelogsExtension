@@ -124,7 +124,7 @@ public class ChangelogCommand extends MinecraftCommand {
                 String name = configuration.getString(path + "name", key);
                 boolean push = configuration.getBoolean(path + "public", false);
 
-                if (!tag.equalsIgnoreCase("NOT_TAG")) {
+                if (!tag.equalsIgnoreCase("NOT_TAG") && !tag.equalsIgnoreCase("NOT_SET")) {
                     continue;
                 }
                 if (push) {
@@ -291,7 +291,7 @@ public class ChangelogCommand extends MinecraftCommand {
                 String tag = configuration.getString(path + "tag", "NOT_TAG");
                 String name = configuration.getString(path + "name", key);
 
-                if (!tag.equalsIgnoreCase("NOT_TAG")) {
+                if (!tag.equalsIgnoreCase("NOT_TAG") && !tag.equalsIgnoreCase("NOT_SET")) {
                     continue;
                 }
 
@@ -446,7 +446,7 @@ public class ChangelogCommand extends MinecraftCommand {
                 String name = configuration.getString(path + "name", key);
                 boolean push = configuration.getBoolean(path + "public", false);
 
-                if (!tag.equalsIgnoreCase("NOT_TAG")) {
+                if (!tag.equalsIgnoreCase("NOT_TAG") && !tag.equalsIgnoreCase("NOT_SET")) {
                     int count = tagMap.getOrDefault(tag, 0);
 
                     count++;
