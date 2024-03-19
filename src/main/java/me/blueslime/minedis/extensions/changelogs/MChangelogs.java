@@ -25,7 +25,7 @@ public final class MChangelogs extends MinedisExtension {
             "embeds.on-push",
             EmbedSection.builder()
                 .author("%nick%<split>https://github.com/MrUniverse44/Minedis<split>https://minotar.net/avatar/%nick%/100.png")
-                .title("[%project%] %commits% new %commit_var%<split>https://github.com/MrUniverse44/Minedis")
+                .title("[%project%] %amount% new %commit_var%<split>https://github.com/MrUniverse44/Minedis")
                 .description("%commits%")
         );
 

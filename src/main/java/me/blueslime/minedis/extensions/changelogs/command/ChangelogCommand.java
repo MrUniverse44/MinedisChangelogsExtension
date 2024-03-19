@@ -179,6 +179,9 @@ public class ChangelogCommand extends MinecraftCommand {
                     ).replace(
                         "%project%",
                         projectName
+                    ).replace(
+                        "%amount%",
+                        String.valueOf(amount)
                     )
                 ).append(
                     split
@@ -220,6 +223,9 @@ public class ChangelogCommand extends MinecraftCommand {
                     ).replace(
                         "%project%",
                         projectName
+                    ).replace(
+                        "%amount%",
+                        String.valueOf(amount)
                     )
                 )
             ).queue();
@@ -353,6 +359,9 @@ public class ChangelogCommand extends MinecraftCommand {
                     ).replace(
                         "%project%",
                         projectName
+                    ).replace(
+                        "%amount%",
+                        String.valueOf(amount)
                     )
                 ).append(
                     split
@@ -398,6 +407,9 @@ public class ChangelogCommand extends MinecraftCommand {
                     ).replace(
                         "%project%",
                         projectName
+                    ).replace(
+                        "%amount%",
+                        String.valueOf(amount)
                     )
                 )
             ).queue();
